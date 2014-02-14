@@ -1,0 +1,33 @@
+# DISABLED: gcc4 no longer exists
+# gcc4
+gcc-core
+gcc-g++
+gettext
+gettext-devel
+# libncurses-devel doesn't exist on cygwin64
+libncurses-devel
+make
+pkg-config
+zlib-devel
+perl
+# DISABLED: glib2.0 no longer exists
+# glib2.0
+libglib2.0_0
+libglib2.0-devel
+# libopenssl100 is now available
+libopenssl098
+openssl-devel
+# DISABLED: for building final package with NSIS
+# subversion
+# for downloading source packages in helper.sh
+curl
+# DISABLED: for debugging any build issues
+# gdb
+# nano
+# DISABLED: for --with-gc
+# libgc-devel
+# libgc1
+# DISABLED: to update dnssec-tools autohell
+# autoconf
+# automake
+# libtool
