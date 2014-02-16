@@ -6,7 +6,7 @@ version=0.8.16-rc1
 
 echo Downloading irssi-$version.tar.gz...
 pushd /tmp/cygmake/src > /dev/null
-curl -sLO http://irssi.org/files/irssi-0.8.16-rc1.tar.gz
+curl -sLO http://irssi.org/files/irssi-$version.tar.gz
 popd > /dev/null
 
 echo Extracting irssi-$version.tar.gz...
