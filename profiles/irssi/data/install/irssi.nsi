@@ -20,8 +20,11 @@
 !insertmacro REQUIRE_VERSION "2.35"
 
 !define APP_VER_FULL "0.8.16-rc1"
+; Four numbers, delimited with dots, are required here. For release candidates,
+; use a high build number in the previous version, such as 9800 plus the
+; release candidate number. This allows any programs sorting on this internal
+; field to work as expected.
 !define APP_VER_INFO "0.8.15.9801"
-!define APP_VER_FILE "0_8_15_9801"
 !define APP_PKG_RELEASE "1"
 !define SRC_DIR "irssi"
 !define EXTRA_SHARED "shared"
@@ -57,7 +60,7 @@ ShowInstDetails show
 ShowUninstDetails show
 
 Name "${APP_NAME_FULL} ${APP_VER_FULL}"
-OutFile "${APP_NAME_FILE}_${APP_VER_FILE}_setup_${APP_PKG_RELEASE}.exe"
+OutFile "${APP_NAME_FILE}-${APP_VER_FULL}.exe"
 InstallDir "${APP_INSTDIR_DEFAULT}"
 InstallDirRegKey "${APP_REG_ROOT}" "${APP_REG_INSTALLER}" "${APP_REG_INSTDIR_VALUE}"
 
