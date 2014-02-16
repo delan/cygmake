@@ -31,6 +31,11 @@ if "%o_profile%"=="" (
 	goto :help
 )
 
+if not exist profiles\%o_profile% (
+	echo Invalid profile: %o_profile%
+	goto :eof
+)
+
 REM internal variables
 
 set token=%RANDOM%
@@ -58,6 +63,11 @@ for /f "usebackq tokens=*" %%i in (`dir /s /b makensis.exe`) do (
 	set nsis=%%i
 )
 popd
+
+if not exist "%nsis%" (
+	echo NSIS doesn't appear to be installed!
+	goto :eof
+)
 
 echo NSIS binary: %nsis%
 
