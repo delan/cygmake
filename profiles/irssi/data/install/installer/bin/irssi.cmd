@@ -9,6 +9,6 @@ FOR /f "delims=" %%i IN ('cygpath -C UTF8 "%APPDATA%\Irssi"') DO SET IRSSI_HOME=
 FOR /f "tokens=* delims= " %%a IN ("%IRSSI_HOME%") DO SET IRSSI_HOME=%%a
 IF "!IRSSI_HOME:~-1!"==" " SET IRSSI_HOME=!IRSSI_HOME:~0,-1!
 
-SET HOME=%IRSSI_HOME%
+SET HOME=%USERPROFILE%
 
 mintty.exe -i ..\irssi.ico -t Irssi ./irssi --home="%IRSSI_HOME%"
