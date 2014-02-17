@@ -140,8 +140,8 @@ Function .onInit
     MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \
     "Another version of Irssi is already installed and must be removed before installing this \
     version.$\n$\nClick 'OK' to start its uninstaller or 'Cancel' to cancel this installation."
-    Exec $INSTDIR\Uninstall.exe
-    Abort
+    ; Unfortunately, ExecWait doesn't actually wait at the moment.
+    ExecWait $INSTDIR\Uninstall.exe
   
     previousCheckDone:
   
