@@ -187,10 +187,7 @@ Section un.AppDataFiles
 
   ; Startup script and config
   MessageBox MB_YESNO|MB_DEFBUTTON2 "${MSG_REMOVE_CONFIG}" IDNO KEEP_CONFIG_DATA
-    Delete "$APPDATA\${APP_NAME_SHORT}\startup"
-    Delete "$APPDATA\${APP_NAME_SHORT}\config"
-    Delete "$APPDATA\${APP_NAME_SHORT}\default.theme"
-    RMDir "$APPDATA\${APP_NAME_SHORT}"
+    RMDir /r "$APPDATA\${APP_NAME_SHORT}"
 	
   KEEP_CONFIG_DATA:
 SectionEnd
