@@ -117,7 +117,7 @@ popd
 
 echo Building installer...
 pushd %rdir%\tmp\cygmake\install
-"%nsis%" irssi.nsi > %ldir%\090-nsis.log 2>&1
+"%nsis%" nsis.nsi > %ldir%\090-nsis.log 2>&1
 popd
 
 echo Backing up logs...
