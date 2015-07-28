@@ -49,7 +49,5 @@ mkdir -p usr/share
 cp -r /usr/share/terminfo usr/share
 cp -r /lib/perl5/5.* lib/perl5
 cp /usr/bin/mintty bin
+cp /usr/bin/cygpath bin
 popd > /dev/null
-
-echo Preparing the installer by copying cygpath.exe...
-cp /usr/bin/cygpath /tmp/cygmake/install/installer/bin
