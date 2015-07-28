@@ -1,0 +1,20 @@
+# essential build packages
+curl
+gnupg
+make
+gcc-core
+gcc-g++
+pkg-config
+
+# required for irssi
+zlib-devel
+gettext-devel
+libglib2.0-devel
+libncurses-devel
+
+# required for Perl
+perl
+libcrypt-devel
+
+# required for SSL
+openssl-devel
