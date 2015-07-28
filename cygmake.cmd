@@ -1,5 +1,8 @@
 @echo off
 
+REM Hack: required to make set work like it should
+setlocal enabledelayedexpansion
+
 REM option variables
 
 set o_arch=x86
@@ -82,19 +85,15 @@ mkdir %sdir% > nul 2>&1
 echo Downloading Cygwin setup...
 call :download http://cygwin.com/setup-%o_arch%.exe %sdir%\setup.exe
 
-echo Installing Cygwin base...
+echo Installing Cygwin dependencies...
 
-%scmd% > %ldir%\000-setup-base.log 2>&1
+REM Hack: single dummy package required
+set packages=curl
+
+for /f "eol=# tokens=*" %%i in (profiles\%o_profile%\packages.txt) do set packages=!packages!,%%i
+
+%scmd% --packages !packages! > %ldir%\001-setup.log 2>&1
 if errorlevel 1 goto :fail %ERRORLEVEL% setup
-
-REM run %scmd% for each line in the profile's package list
-REM http://ss64.com/nt/for_f.html
-
-for /f "eol=# tokens=*" %%i in (profiles\%o_profile%\packages.txt) do (
-	echo Installing package: %%i...
-	%scmd% --packages %%i > %ldir%\001-setup-%%i.log 2>&1
-	if errorlevel 1 goto :fail %ERRORLEVEL% setup
-)
 
 echo Augmenting root filesystem...
 mkdir %rdir%\tmp\cygmake
