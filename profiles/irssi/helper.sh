@@ -12,14 +12,6 @@ popd > /dev/null
 echo Extracting irssi-$version.tar.gz...
 tar xf /tmp/cygmake/src/irssi-$version.tar.gz -C /tmp/cygmake/build
 
-# strange symptom that intermittently appears for reasons yet unknown:
-# make[4]: g++-4: Command not found
-# Makefile:499: recipe for target 'blib/arch/auto/Irssi/Irssi.dll' failed
-
-# disgusting hack to work around that:
-# echo Creating g++-4 symlink to fix Makefile bug...
-# ln -s "`which g++`" "`which g++`-4"
-
 echo Hack: working around missing Irssi.dll error...
 mv /usr/bin/chmod /usr/bin/chmod.real
 echo '#!/bin/sh' >> /usr/bin/chmod
