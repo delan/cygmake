@@ -1,5 +1,6 @@
 # essential build packages
 curl
+gnupg
 make
 gcc-core
 gcc-g++

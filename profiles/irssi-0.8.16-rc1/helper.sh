@@ -9,6 +9,17 @@ pushd /tmp/cygmake/src > /dev/null
 curl -sLO http://irssi.org/files/irssi-$version.tar.gz
 popd > /dev/null
 
+echo Verifying irssi-$version.tar.gz...
+pushd /tmp/cygmake/src > /dev/null
+curl -sLO http://irssi.org/files/irssi-$version.tar.gz.sig
+gpg --keyserver pool.sks-keyservers.net \
+	--recv-keys 0x00CCB587DDBEF0E1 \
+	> /tmp/cygmake/logs/010-gpg-recv-keys.log 2>&1
+gpg --batch --verify irssi-$version.tar.gz.sig \
+	irssi-$version.tar.gz \
+	> /tmp/cygmake/logs/011-gpg-verify.log 2>&1
+popd > /dev/null
+
 echo Extracting irssi-$version.tar.gz...
 tar xf /tmp/cygmake/src/irssi-$version.tar.gz -C /tmp/cygmake/build
 
@@ -33,12 +44,12 @@ CFLAGS=-DUSEIMPORTLIB ./configure \
 	--enable-largefile \
 	--without-gc \
 	--disable-dane \
-	> /tmp/cygmake/logs/010-configure.log 2>&1
+	> /tmp/cygmake/logs/012-configure.log 2>&1
 popd > /dev/null
 
 echo Compiling Irssi...
 pushd /tmp/cygmake/build/irssi-$version > /dev/null
-make -j8 > /tmp/cygmake/logs/011-make.log 2>&1
+make -j8 > /tmp/cygmake/logs/013-make.log 2>&1
 popd > /dev/null
 
 echo Hack for x86: fix syntax errors in some Makefiles
@@ -50,7 +61,7 @@ popd > /dev/null
 
 echo Installing Irssi to a temporary directory...
 pushd /tmp/cygmake/build/irssi-$version > /dev/null
-make install > /tmp/cygmake/logs/012-install.log 2>&1
+make install > /tmp/cygmake/logs/014-install.log 2>&1
 popd > /dev/null
 
 echo Rolling in required libraries and binaries...
