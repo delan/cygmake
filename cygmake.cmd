@@ -8,6 +8,7 @@ REM option variables
 set o_arch=x86
 set o_mirror=http://mirror.internode.on.net/pub/cygwin
 set o_profile=
+set o_working=%TEMP%\cygmake
 
 REM parse command line arguments
 REM http://stackoverflow.com/a/3981086/330644
@@ -26,6 +27,10 @@ if not "%1"=="" (
 		set o_profile=%2
 		shift
 	)
+	if "%1"=="-working" (
+		set o_working=%2
+		shift
+	)
 	shift
 	goto :loop_argp
 )
@@ -42,8 +47,8 @@ if not exist profiles\%o_profile% (
 REM internal variables
 
 set token=%RANDOM%
-set bdir=%TEMP%\cygmake\%token%
-set cdir=%TEMP%\cygmake\cache
+set bdir=!o_working!\%token%
+set cdir=!o_working!\cache
 set ldir=%bdir%\logs
 set rdir=%bdir%\root
 set sdir=%bdir%\setup
@@ -76,6 +81,7 @@ echo NSIS binary: %nsis%
 
 echo Creating directories...
 
+mkdir !o_working! > nul 2>&1
 mkdir %bdir% > nul 2>&1
 mkdir %cdir% > nul 2>&1
 mkdir %ldir% > nul 2>&1
@@ -131,6 +137,7 @@ echo cygmake.cmd: cleanly compile applications for Cygwin
 echo -arch [...]	CPU architecture (x86_64, default x86)
 echo -mirror [...]	Cygwin package mirror URL (default Internode)
 echo -profile [...]	build profile (mandatory)
+echo -working [...] working directory (default %%TEMP%%\cygmake)
 goto :eof
 
 :fail
