@@ -133,7 +133,7 @@ goto :eof
 REM subroutines
 
 :help
-echo cygmake.cmd: cleanly compile applications for Cygwin
+echo %0: cleanly compile applications for Cygwin
 echo -arch [...]	CPU architecture (x86_64, default x86)
 echo -mirror [...]	Cygwin package mirror URL (default Internode)
 echo -profile [...]	build profile (mandatory)
