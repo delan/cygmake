@@ -9,8 +9,6 @@ pkg-config
 zlib-devel
 gettext-devel
 libglib2.0-devel
-
-# required for x86
 libncurses-devel
 
 # required for Perl
