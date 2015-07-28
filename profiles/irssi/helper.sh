@@ -32,7 +32,7 @@ chmod.real +x /usr/bin/chmod
 # --enable-dane doesn't work because dnssec-tools is broken on Windows
 # --with-socks doesn't work because I can't find whatever libsocks is
 
-echo Compiling irssi...
+echo Compiling Irssi...
 pushd /tmp/cygmake/build/irssi-$version > /dev/null
 CFLAGS=-DUSEIMPORTLIB ./configure \
 	--prefix=/tmp/cygmake/install/irssi \
