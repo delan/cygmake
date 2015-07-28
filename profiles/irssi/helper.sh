@@ -19,7 +19,7 @@ echo 'chmod.real "$@"' >> /usr/bin/chmod
 echo 'exit 0' >> /usr/bin/chmod
 chmod.real +x /usr/bin/chmod
 
-echo Compiling Irssi...
+echo Configuring Irssi...
 pushd /tmp/cygmake/build/irssi-$version > /dev/null
 CFLAGS=-DUSEIMPORTLIB ./configure \
 	--prefix=/tmp/cygmake/install/irssi \
@@ -34,7 +34,22 @@ CFLAGS=-DUSEIMPORTLIB ./configure \
 	--without-gc \
 	--disable-dane \
 	> /tmp/cygmake/logs/010-configure.log 2>&1
+popd > /dev/null
+
+echo Compiling Irssi...
+pushd /tmp/cygmake/build/irssi-$version > /dev/null
 make -j8 > /tmp/cygmake/logs/011-make.log 2>&1
+popd > /dev/null
+
+echo Hack for x86: fix syntax errors in some Makefiles
+pushd /tmp/cygmake/build/irssi-$version/src/perl > /dev/null
+for i in common irc textui ui; do
+	sed -i -r 's^dll /bin/rebase^dll | /bin/rebase^' $i/Makefile
+done
+popd > /dev/null
+
+echo Installing Irssi to a temporary directory...
+pushd /tmp/cygmake/build/irssi-$version > /dev/null
 make install > /tmp/cygmake/logs/012-install.log 2>&1
 popd > /dev/null
 
