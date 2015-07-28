@@ -26,16 +26,16 @@ Thank you for using irssi-win32-0.8.16-rc1.
 
 Included in this release:
 
-  * mintty 1.1.3
-  * Irssi proxy (--with-proxy)
-  * Perl scripting support (--with-perl-staticlib)
+  * mintty and the Irssi text UI
+  * Irssi proxy
+  * Support for modules and Perl scripting
+  * Support for IPv6, SSL, and large files
 
 Not included in this release:
 
-  * Irssi bot (--with-bot): linking fails with undefined reference errors.
-  * SOCKS proxy support (--with-socks): can't locate appropriate libsocks.
-  * Garbage collector (--with-gc): Irssi silently exits or segfaults when run.
-  * DANE (--enable-dane): libval does not support Windows and fails to compile.
+  * Irssi bot: linking fails with undefined reference errors
+  * Garbage collector: Irssi silently exits or segfaults when run
+  * DANE: libval does not support Windows and fails to compile
 
 
 
@@ -62,106 +62,19 @@ the Unix-style path convention provided by Cygwin:
 
 
 
-Automatic build instructions
-----------------------------
+Build instructions
+------------------
 
 1. Download and install NSIS from http://nsis.sourceforge.net/
 2. Download cygmake from https://github.com/delan/cygmake
-3. In a Windows command prompt, run:
+3. Change the line endings of helper.sh to LF characters only
+4. In a Windows command prompt, run:
 
-	cygmake -profile irssi
+	cygmake -profile irssi-0.8.16-rc1
 
 The generated installer can be found in:
 
 	%TEMP%\cygmake\<number>\root\tmp\cygmake\install
-
-
-
-Manual build instructions
--------------------------
-
-1. Download the Cygwin installer for x86 from http://cygwin.com/setup-x86.exe
-2. Install Cygwin, along with the following packages:
-
-	gcc-core
-	gcc-g++
-	gettext
-	gettext-devel
-	libncurses-devel
-	make
-	pkg-config
-	zlib-devel
-	perl
-	libglib2.0_0
-	libglib2.0-devel
-	libopenssl098
-	openssl-devel
-
-3. Download the Irssi source code from http://irssi.org and save it to
-   C:\cygwin\home\<username>
-
-4. Open a Cygwin terminal, and run the following commands:
-
-	tar xf irssi-*.tar.gz
-	cd irssi-*
-
-	# If you want Perl support:
-	CFLAGS=-DUSEIMPORTLIB ./configure --prefix=/cygdrive/c/irssi \
-		--with-proxy --with-perl-staticlib
-
-	# If you don't want Perl support:
-	CFLAGS=-DUSEIMPORTLIB ./configure --prefix=/cygdrive/c/irssi \
-		--with-proxy --with-perl=no
-
-	make
-	make install
-
-5. You may encounter an error during 'make install' where chmod Irssi.dll fails
-   because it doesn't exist. Work around this by typing the following commands:
-
-	mv /usr/bin/chmod /usr/bin/chmod.real
-	echo '#!/bin/sh' >> /usr/bin/chmod
-	echo 'chmod.real "$@"' >> /usr/bin/chmod
-	echo 'exit 0' >> /usr/bin/chmod
-	chmod.real +x /usr/bin/chmod
-	make install
-
-6. Now you can start Irssi from a Cygwin terminal with:
-
-	/cygdrive/c/irssi/bin/irssi
-
-
-
-Preparing a manual build for distribution
------------------------------------------
-
-1. In a Cygwin terminal, change directories into your Irssi installation:
-
-	cd /cygdrive/c/irssi
-
-2. Copy the Cygwin DLLs that are necessary for Irssi to run:
-
-	ldd bin/irssi | \
-		egrep -v 'cygdrive|\?\?\?' | \
-		tr -d '\t' | \
-		cut -d ' ' -f 3 | \
-		xargs -I ! cp -v ! bin
-
-3. Copy /usr/share/terminfo from your Cygwin installation to the irssi
-   root, such that the Irssi directory contains its own usr\share\terminfo:
-
-	mkdir -pv usr/share
-	cp -rv /usr/share/terminfo usr/share
-
-4. If you opted for Perl support, merge the contents of /lib/perl5/5.14 from
-   your Cygwin installation into the corresponding directory in your Irssi
-   directory tree (irssi/lib/perl5/5.14):
-
-	cp -rv /lib/perl5/5.* lib/perl5
-
-5. Copy mintty to the bin subdirectory of the Irssi installation:
-
-	cp -v /usr/bin/mintty bin
 
 
 
