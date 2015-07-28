@@ -19,19 +19,18 @@ echo 'chmod.real "$@"' >> /usr/bin/chmod
 echo 'exit 0' >> /usr/bin/chmod
 chmod.real +x /usr/bin/chmod
 
-# --with-bot results in hundreds of undefined reference errors
-# --with-gc results in silent exit
-# --enable-dane doesn't work because dnssec-tools is broken on Windows
-# --with-socks doesn't work because I can't find whatever libsocks is
-
 echo Compiling Irssi...
 pushd /tmp/cygmake/build/irssi-$version > /dev/null
 CFLAGS=-DUSEIMPORTLIB ./configure \
 	--prefix=/tmp/cygmake/install/irssi \
-	--with-proxy \
-	--with-perl-staticlib \
-	--without-socks \
+	--with-textui --with-terminfo \
 	--without-bot \
+	--with-proxy \
+	--with-modules \
+	--with-perl-staticlib \
+	--enable-ipv6 \
+	--enable-ssl \
+	--enable-largefile \
 	--without-gc \
 	--disable-dane \
 	> /tmp/cygmake/logs/010-configure.log 2>&1
